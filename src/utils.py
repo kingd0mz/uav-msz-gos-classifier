@@ -1,0 +1,8 @@
+import rasterio
+
+def write_geotiff(path, array, meta):
+    meta2 = meta.copy()
+    meta2.update(count=1, dtype="uint8")
+
+    with rasterio.open(path, "w", **meta2) as dst:
+        dst.write(array.astype("uint8"), 1)
