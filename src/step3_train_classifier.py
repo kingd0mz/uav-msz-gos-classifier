@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
+import joblib
 
 def train_classifier(X, y):
     # ------------------------------------------
@@ -71,6 +72,8 @@ def train_classifier(X, y):
     for name, imp in ranking:
         print(f"{name:12s} : {imp:.6f}")
 
-    print("\nNOTE: bands below random_band are useless.\n")
+    # Save the trained model
+    joblib.dump(clf, "models/classifier_rf.joblib")
+    print("\nClassifier saved as classifier_rf.joblib\n")
 
     return clf

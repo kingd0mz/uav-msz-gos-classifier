@@ -22,15 +22,15 @@ import geopandas as gpd
 
 #     return arr, meta, gdf
 
-def load_raster_and_vectors(raster_path, vector_path):
+def load_raster_and_vectors(raster_path, vector_path=None):
     src = rasterio.open(raster_path)
-    arr = src.read()  # shape = (13, H, W)
-
+    arr = src.read()
     meta = src.meta.copy()
 
-    # Load vector and reproject if needed
-    gdf = gpd.read_file(vector_path)
-    if gdf.crs != src.crs:
-        gdf = gdf.to_crs(src.crs)
+    gdf = None
+    if vector_path is not None:
+        gdf = gpd.read_file(vector_path)
+        if gdf.crs != src.crs:
+            gdf = gdf.to_crs(src.crs)
 
     return arr, meta, gdf
