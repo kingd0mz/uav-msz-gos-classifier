@@ -1,12 +1,8 @@
 import numpy as np
+import rasterio
+from rasterio.windows import Window
 
 def classify_full_raster(arr, clf):
-    n_bands, H, W = arr.shape
-
-    # reshape to (pixels, bands)
-    X_all = arr.reshape(n_bands, -1).T
-
-    y_all = clf.predict(X_all)
-    class_map = y_all.reshape(H, W)
-
-    return class_map
+    # Do nothing here. We will classify using tiled method in main.
+    # Keep this file for compatibility in case needed.
+    raise NotImplementedError("Use tiled classification instead.")
